@@ -3,11 +3,11 @@ from abc import ABC
 
 
 class Detector(ABC):
-    def __init__(self, image_path=None):
+    def __init__(self, image=None):
         pass
 
     @abstractmethod
-    def read(self, image_path):
+    def read(self, image):
         pass
 
     @abstractmethod

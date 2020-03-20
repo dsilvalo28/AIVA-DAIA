@@ -37,7 +37,7 @@ class Test(unittest.TestCase):
         path_images = os.listdir(test_path)
         for path in path_images:
             if path.endswith(".tif"):
-                self.detector.read(test_path + path)
+                self.detector.read_path(test_path + path)
                 segmentation = self.detector.process_image()
                 building_map = cv2.imread(test_path + gt_buildings_path + path)
                 building_segmentation = cv2.cvtColor(building_map, cv2.COLOR_BGR2GRAY).astype(np.bool)
@@ -51,7 +51,7 @@ class Test(unittest.TestCase):
         path_images = os.listdir(test_path)
         for path in path_images:
             if path.endswith(".tif"):
-                self.detector.read(test_path + path)
+                self.detector.read_path(test_path + path)
                 percentage = self.detector.calculate_percentage()
                 self.assertGreater(percentage, constant_percentage[0])
                 self.assertLess(percentage, constant_percentage[1])
@@ -63,7 +63,7 @@ class Test(unittest.TestCase):
         path_images = os.listdir(test_path)
         for path in path_images:
             if path.endswith(".tif"):
-                self.detector.read(test_path + path)
+                self.detector.read_path(test_path + path)
                 m2 = self.detector.calculate_m2()
                 self.assertGreater(m2, constant_m2[0])
                 self.assertLess(m2, constant_m2[1])
@@ -75,7 +75,7 @@ class Test(unittest.TestCase):
         path_images = os.listdir(test_path)
         for path in path_images:
             if path.endswith(".tif"):
-                self.detector.read(test_path + path)
+                self.detector.read_path(test_path + path)
                 n_trees = self.detector.calculate_number_trees()
                 self.assertGreater(n_trees, constant_n_trees[0])
                 self.assertLess(n_trees, constant_n_trees[1])
