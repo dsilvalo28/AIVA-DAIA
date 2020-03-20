@@ -32,6 +32,7 @@ Application that measures the percentage and square meters of tree mass and the 
 - OpenCV 4.2.0.32
 - Numpy 1.18.1
 - Matplotlib 3.2.1
+- pyabc 0.10.1 
 
 ## Authors
 - Daniel Hernández Ferrándiz
