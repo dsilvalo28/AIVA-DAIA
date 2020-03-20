@@ -14,7 +14,8 @@ class TreeDetector(Detector):
         # *** CONSTANTS *** #
         self.__threshold_down = 127
         self.__threshold_up = 255
-        self.__totalm2 = 1200
+        self.__totalm2 = 12000
+        self.__treesperm2 = 0.6
 
     # *** PRIVATE *** #
     def __preprocess_image(self):
@@ -39,6 +40,7 @@ class TreeDetector(Detector):
         """
         self.__image_path = image_path
         self.image = cv2.imread(self.__image_path)
+        return self.image
 
     def process_image(self, lc=[0, 100, 100], uc=[120, 255, 255]):
         """
@@ -65,7 +67,7 @@ class TreeDetector(Detector):
         :return: Percentage of tree mass of the set image
         """
         segmented_image = self.process_image()
-        percentage = np.mean(segmented_image)
+        percentage = np.mean(segmented_image/2.55)
         return percentage
 
     def calculate_m2(self):
@@ -80,6 +82,6 @@ class TreeDetector(Detector):
         """
         :return: Number of trees of the set image
         """
-        segmented_image = self.process_image()
-        n_trees = 120
+        m2 = self.calculate_m2()
+        n_trees = int(m2 * self.__treesperm2)
         return n_trees

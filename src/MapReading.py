@@ -91,7 +91,7 @@ class MapReader:
         w, h = [MAX_RESOLUTION, MAX_RESOLUTION]
 
         # assemble the image from stitched
-        final = np.zeros([resolution[0], resolution[1], 3])
+        final = np.zeros([resolution[0], resolution[1], 3],dtype=np.uint8)
         for x in range(cols):
             for y in range(rows):
                 dxn = w * (0.5 + x)
