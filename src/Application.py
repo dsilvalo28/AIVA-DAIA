@@ -90,10 +90,10 @@ class Application:
         save_image(self.__save_test_name, self.__map)
 
     def save_mask(self):
-        save_image(self.__save_test_name, self.__mask)
+        save_image(self.__save_mask_name, self.__mask)
 
     def save_result(self):
-        save_image(self.__save_test_name, self.__result)
+        save_image(self.__save_mixed_name, self.__result)
 
 
 if __name__ == '__main__':
