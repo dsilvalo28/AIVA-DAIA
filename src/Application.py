@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
-from src.MapReading import MapReader
-from src.TreeDetector import TreeDetector
-from src.utils import save_image as save_image
+from MapReading import MapReader
+from MapReading import MapReader
+from TreeDetector import TreeDetector
+from utils import save_image as save_image
 import numpy as np
 import cv2
 import sys
@@ -98,4 +99,4 @@ class Application:
 
 if __name__ == '__main__':
     app = Application()
-    input("Press any key")
+    # input("Press any key")

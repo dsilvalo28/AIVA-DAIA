@@ -2,7 +2,7 @@ import cv2
 import io
 import requests
 import numpy as np
-import src.utils
+import utils
 from math import log, exp, tan, atan, pi, ceil
 
 MAX_RESOLUTION = 500
@@ -17,7 +17,7 @@ DEFAULT_RESOLUTION = [5000, 5000]
 # Map reader class #
 class MapReader:
     def __init__(self):
-        self.__key = src.utils.get_api_key()
+        self.__key = utils.get_api_key()
 
     def __get_address_coordinates(self, address):
         """

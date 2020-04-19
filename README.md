@@ -34,6 +34,11 @@ Application that measures the percentage and square meters of tree mass and the 
 - Matplotlib 3.2.1
 - pyabc 0.10.1 
 
+## Docker
+To create a docker image use the following command:
+- docker build -t "application_name" .
+- docker run "application_name"
+
 ## Authors
 - Daniel Hernández Ferrándiz
 - Diego Silva López
