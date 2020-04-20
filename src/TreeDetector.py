@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from Detector import Detector
+from src.Detector import Detector
 
 
 # Tree detector class #

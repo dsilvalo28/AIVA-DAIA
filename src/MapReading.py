@@ -2,7 +2,7 @@ import cv2
 import io
 import requests
 import numpy as np
-import utils
+from src import utils
 from math import log, exp, tan, atan, pi, ceil
 
 MAX_RESOLUTION = 500
