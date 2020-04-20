@@ -18,7 +18,7 @@ def get_api_key():
         return sys.argv.pop()
     else:
         try:
-            import credentials
+            import src.credentials as credentials
             if hasattr(credentials, 'GOOGLE_MAPS_API_KEY'):
                 print('Reading API key from credentials.py')
                 return credentials.GOOGLE_MAPS_API_KEY

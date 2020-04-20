@@ -10,10 +10,8 @@ import sys
 # Tree detector class #
 class Application:
     def __init__(self, image):
-        # self.MR = MapReader()
-        print("HOOOOOOOOOOLA")
+        self.MR = MapReader()
         self.TD = TreeDetector()
-        print(image.shape)
 
         self.__map = None
         self.__mask = None
@@ -32,8 +30,7 @@ class Application:
 
         # self.run(address='Austin, Texas')
         # self.run(coordinates=[30.223423, -97.782728])
-        self.percentage = image.shape
-        self.run(image_final=image)
+        self.image = self.run(image_final=image)
 
     # *** PUBLIC *** #
     def run(self, address=None, coordinates=None, image_path=None, image_final=None):
@@ -63,6 +60,8 @@ class Application:
         self.__m2 = self.TD.calculate_m2()
         self.__n = self.TD.calculate_number_trees()
         self.show_result()
+
+        return self.__result
 
     def show_map(self):
         plt.figure()

@@ -6,7 +6,6 @@ import cv2
 import cgi
 import numpy as np
 from src.Application import Application
-# from src.caca import caca
 
 class Servidor(BaseHTTPRequestHandler):
     # Clase que actua como servidor HTTP
@@ -29,6 +28,9 @@ class Servidor(BaseHTTPRequestHandler):
         app = Application(img)
         # Finalmente escribimos el resultado en un mapa para enviarlo
         message['result'] = app.percentage
+        png_encoded_img = cv2.imencode('.jpg', app.image)
+        base64_encoded_img = base64.b64encode(png_encoded_img[1])
+        message["image_final"] = base64_encoded_img.decode('UTF-8')
         bytes_message = bytes(json.dumps(message), encoding='UTF-8')
 
         # Finalmente enviamos la respuesta
