@@ -13,7 +13,7 @@ max_overlapping = 0.001
 
 test_path = "images/test/"
 gt_buildings_path = "building_gt/"
-address = 'URJC Mostoles'
+address = 'Austin'
 coordinates = [30.223423, -97.782728]
 import matplotlib.pyplot as plt
 
