@@ -9,7 +9,7 @@ import sys
 
 # Tree detector class #
 class Application:
-    def __init__(self, image):
+    def __init__(self,  address=None, coordinates=None, image_final=None):
         self.MR = MapReader()
         self.TD = TreeDetector()
 
@@ -17,8 +17,8 @@ class Application:
         self.__mask = None
         self.__result = None
         self.percentage = None
-        self.__m2 = None
-        self.__n = None
+        self.m2 = None
+        self.n = None
 
         # *** CONSTANTS *** #
         self.__save_test_name = 'test_map'
@@ -28,9 +28,12 @@ class Application:
         self.__uc = [90, 90, 90]
         self.__mix_color = [0.0, 1.0, 0.0]
 
-        # self.run(address='Austin, Texas')
-        # self.run(coordinates=[30.223423, -97.782728])
-        self.image = self.run(image_final=image)
+        if address is not None:
+            self.image = self.run(address=address)
+        elif coordinates is not None:
+            self.image = self.run(coordinates=coordinates)
+        elif image_final is not None:
+            self.image = self.run(image_final=image_final)
 
     # *** PUBLIC *** #
     def run(self, address=None, coordinates=None, image_path=None, image_final=None):
@@ -49,16 +52,17 @@ class Application:
             self.TD.read(self.__map)
         elif image_path is not None:
             self.__map = self.TD.read_from_path(image_path)
+        elif image_final is not None:
+            self.__map = self.TD.read(image_final)
         else:
             print('Define run input')
-            self.__map = self.TD.read(image_final)
-            # sys.exit(1)
+            sys.exit(1)
         self.__mask = self.TD.process_image(self.__lc, self.__uc)
         overlay = (self.__mask.astype(np.float) * np.array([[self.__mix_color]], dtype=np.float)).astype(np.uint8)
         self.__result = cv2.addWeighted(src1=self.__map, alpha=1, src2=overlay, beta=0.6, gamma=0, dst=self.__result)
         self.percentage = self.TD.calculate_percentage()
-        self.__m2 = self.TD.calculate_m2()
-        self.__n = self.TD.calculate_number_trees()
+        self.m2 = self.TD.calculate_m2()
+        self.n = self.TD.calculate_number_trees()
         self.show_result()
 
         return self.__result
@@ -68,8 +72,8 @@ class Application:
         plt.ion()
         plt.imshow(self.__map)
         plt.title('Percentage of tree mass: {:.3f}% m2: {:.0f} m2 Number of trees: {} trees'.format(self.percentage,
-                                                                                                    self.__m2,
-                                                                                                    self.__n))
+                                                                                                    self.m2,
+                                                                                                    self.n))
         plt.show()
 
     def show_mask(self):
@@ -77,8 +81,8 @@ class Application:
         plt.ion()
         plt.imshow(self.__mask)
         plt.title('Percentage of tree mass: {:.3f}% m2: {:.0f} m2 Number of trees: {} trees'.format(self.percentage,
-                                                                                                    self.__m2,
-                                                                                                    self.__n))
+                                                                                                    self.m2,
+                                                                                                    self.n))
         plt.show()
 
     def show_result(self):
@@ -86,8 +90,8 @@ class Application:
         plt.ion()
         plt.imshow(self.__result)
         plt.title('Percentage of tree mass: {:.3f}% m2: {:.0f} m2 Number of trees: {} trees'.format(self.percentage,
-                                                                                                    self.__m2,
-                                                                                                    self.__n))
+                                                                                                    self.m2,
+                                                                                                    self.n))
         plt.show()
 
     def save_map(self):

@@ -7,8 +7,10 @@ import cgi
 import numpy as np
 from src.Application import Application
 
+
 class Servidor(BaseHTTPRequestHandler):
-    # Clase que actua como servidor HTTP
+    # Clase que actua
+    # como servidor HTTP
     def _set_headers(self):
         # Método privado que escribe la cabecera de las respuestas
         self.send_response(200)
@@ -19,15 +21,21 @@ class Servidor(BaseHTTPRequestHandler):
         # POST Nos envían datos, hacemos la VA y respondemos
         message = self._extract_msg()
 
-        # Primero extraemos la imagen del JSON que debe venir en Base64
-        base64_img = message['img']
-        jpg_img = base64.b64decode(base64_img)
-        img = cv2.imdecode(np.frombuffer(jpg_img, dtype=np.int8), 1)
+        if message.get('img'):
+            # Primero extraemos la imagen del JSON que debe venir en Base64
+            base64_img = message['img']
+            jpg_img = base64.b64decode(base64_img)
+            img = cv2.imdecode(np.frombuffer(jpg_img, dtype=np.int8), 1)
+            app = Application(image_final=img)
+        elif message.get("address"):
+            app = Application(address=message.get("address"))
+        elif message.get("coordinates"):
+            app = Application(coordinates=message.get("coordinates"))
 
-        # Luego llamamos a nuestra fachada para que aplique la VA
-        app = Application(img)
         # Finalmente escribimos el resultado en un mapa para enviarlo
-        message['result'] = app.percentage
+        message['%'] = app.percentage
+        message["m2"] = app.m2
+        message["n"] = app.n
         png_encoded_img = cv2.imencode('.jpg', app.image)
         base64_encoded_img = base64.b64encode(png_encoded_img[1])
         message["image_final"] = base64_encoded_img.decode('UTF-8')
