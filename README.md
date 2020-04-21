@@ -35,9 +35,12 @@ Application that measures the percentage and square meters of tree mass and the 
 - pyabc 0.10.1 
 
 ## Docker
-To create a docker image use the following command:
-- docker build -t "application_name" .
-- docker run "application_name"
+To launch the docker-compose app in one terminal use:
+- `sudo dockerd`
+
+In other terminal use:
+- `sudo docker-compose build` 
+- `sudo docker-compose up`
 
 ## Authors
 - Daniel Hernández Ferrándiz
